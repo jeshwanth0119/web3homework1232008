@@ -1,5 +1,5 @@
 from web3 import Web3
-from compile import Compile_Solidity
+from Compile import Compile_Solidity
 from typing import Tuple
 import os
 
