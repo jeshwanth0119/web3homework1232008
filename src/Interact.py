@@ -4,8 +4,8 @@ import os
 
 
 contract = "newContract.sol"
-account = os.getenv("ACCOUNT")
-private_key = os.getenv("PRIVATE_KEY")
+account = os.getenv("ANVIL_ACCOUNT")
+private_key = os.getenv("ANVIL_PRIVATE_KEY")
 provider = os.getenv("LOCAL_PROVIDER")
 
 chain_id = os.getenv("CHAIN_ID")
