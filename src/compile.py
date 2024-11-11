@@ -17,5 +17,5 @@ def Compile_Solidity(contract: str)-> str:
      return compiled_sol
 if __name__ == "__main__":
      Compiled_sol = Compile_Solidity("./src/newContract.sol")
-     with open('./src/Compiled/newContract.json','w') as file:
+     with open('Compiled/newContract.json','w') as file:
           json.dump(Compiled_sol,file)

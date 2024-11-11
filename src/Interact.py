@@ -3,22 +3,22 @@ from Deploy import deploy_contract
 import os
 
 
-contract = "newContract.sol"
+contract_file = "./src/newContract.sol"
 account = os.getenv("ANVIL_ACCOUNT")
 private_key = os.getenv("ANVIL_PRIVATE_KEY")
 provider = os.getenv("LOCAL_PROVIDER")
 
-chain_id = os.getenv("CHAIN_ID")
+chain_id = 31337
     
 connection = Web3(Web3.HTTPProvider(provider))
-contract_address, abi = deploy_contract(contract, "newContract", account, private_key, provider, 31337)
+contract_address, abi = deploy_contract(contract_file, "newContract", account, private_key, provider, chain_id)
 
 
 
 simple_storage = connection.eth.contract(address=contract_address, abi = abi)
 nonce = connection.eth.get_transaction_count(account)
 
-transaction = simple_storage.functions.set(150005647).build_transaction(
+transaction = simple_storage.functions.set(150032145).build_transaction(
     {
             "chainId":chain_id,
             "gasPrice":connection.eth.gas_price,

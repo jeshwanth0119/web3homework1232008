@@ -5,15 +5,19 @@ import os
 
 
 
-def deploy_contract(contract:str, contract_name:str, account:str, private_key:str, provider:str, chain_id: int): 
-    
-    compiled_sol = Compile_Solidity(contract)
+def deploy_contract(contract_file: str, contract_name: str, account: str, private_key: str, provider: str, chain_id : int ) : 
+
+
+ 
+    compiled_sol = Compile_Solidity(contract_file)
 
     #Get the ABI and Byte code
-    abi = compiled_sol["contracts"][contract][contract_name]["abi"]
-    byte_code = compiled_sol["contracts"][contract][contract_name]["evm"]["bytecode"]["object"]
+    abi = compiled_sol["contracts"][contract_file][contract_name]["abi"]
+    byte_code = compiled_sol["contracts"][contract_file][contract_name]["evm"]["bytecode"]["object"]
 
     connection = Web3(Web3.HTTPProvider(provider))
+   
+    
 
     contract = connection.eth.contract(abi=abi, bytecode=byte_code)
     nonce = connection.eth.get_transaction_count(account)
@@ -34,3 +38,12 @@ def deploy_contract(contract:str, contract_name:str, account:str, private_key:st
 
     tx_receipt = connection.eth.wait_for_transaction_receipt(tx_hash)
     return (tx_receipt.contractAddress, abi)
+if __name__ == "__main__":
+     contract_file = "./src/newContract.sol"
+     account = os.getenv("ANVIL_ACCOUNT")
+     private_key = os.getenv("ANVIL_PRIVATE_KEY")
+     provider = os.getenv("ETHERSCAN_PROVIDER").format("holesky")
+     print(provider)
+     chain_id = 17000
+     contract_address, abi = deploy_contract(contract_file,"newContract",account,private_key,provider,chain_id)
+     print(f"Contract deployed at {contract_address}")
