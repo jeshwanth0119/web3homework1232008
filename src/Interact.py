@@ -12,11 +12,13 @@ chain_id = 31337
     
 connection = Web3(Web3.HTTPProvider(provider))
 contract_address, abi = deploy_contract(contract_file, "newContract", account, private_key, provider, chain_id)
+print(f"Contract deployed at {contract_address}")
 
 
 
 new_Contract = connection.eth.contract(address=contract_address, abi = abi)
 nonce = connection.eth.get_transaction_count(account)
+print("Creating Transactions")
 new_id_value = 5341
 transaction = new_Contract.functions.updateID(new_id_value).build_transaction(
     {
