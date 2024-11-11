@@ -42,8 +42,8 @@ if __name__ == "__main__":
      contract_file = "./src/newContract.sol"
      account = os.getenv("ANVIL_ACCOUNT")
      private_key = os.getenv("ANVIL_PRIVATE_KEY")
-     provider = os.getenv("ETHERSCAN_PROVIDER").format("holesky")
+     provider = os.getenv("LOCAL_PROVIDER").format("holesky")
      print(provider)
-     chain_id = 17000
+     chain_id = 31337
      contract_address, abi = deploy_contract(contract_file,"newContract",account,private_key,provider,chain_id)
      print(f"Contract deployed at {contract_address}")

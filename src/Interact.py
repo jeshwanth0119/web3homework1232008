@@ -15,10 +15,10 @@ contract_address, abi = deploy_contract(contract_file, "newContract", account, p
 
 
 
-simple_storage = connection.eth.contract(address=contract_address, abi = abi)
+new_Contract = connection.eth.contract(address=contract_address, abi = abi)
 nonce = connection.eth.get_transaction_count(account)
-
-transaction = simple_storage.functions.set(150032145).build_transaction(
+new_id_value = 5341
+transaction = new_Contract.functions.updateID(new_id_value).build_transaction(
     {
             "chainId":chain_id,
             "gasPrice":connection.eth.gas_price,
@@ -34,5 +34,5 @@ tx_hash = connection.eth.send_raw_transaction(signed_txn.raw_transaction)
 tx_receipt = connection.eth.wait_for_transaction_receipt(tx_hash)
 print("Updated")
 
-updated_value = simple_storage.functions.get().call()
+updated_value = new_Contract.functions.viewMyId().call()
 print("Updtaed value" , updated_value) 
